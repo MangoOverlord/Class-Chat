@@ -12,6 +12,7 @@
     {{ room_name|json_script:"room-name" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const identification = '{{ user.username }}';
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -39,7 +40,8 @@
 
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
+            const message = identification + ": " + messageInputDom.value;
+
             chatSocket.send(JSON.stringify({
                 'message': message
             }));
