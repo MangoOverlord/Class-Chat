@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage', 
+    'homepage',
+    'channels',
+    'chat',
     ]
 
 MIDDLEWARE = [
@@ -68,7 +70,15 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Biazza.wsgi.application'
+ASGI_APPLICATION = 'Biazza.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
@@ -123,5 +133,3 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
-
-
