@@ -5,13 +5,18 @@
     <meta charset="utf-8"/>
     <title>Chat Room</title>
 </head>
-<body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
+<body style="justify-content: center; background-image: url(https://3sr05l2l7ihe1u4u613nqp53-wpengine.netdna-ssl.com/wp-content/uploads/2019/08/iStock-1093713604.jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
+    <div class="content-wrapper" style="text-align: center; margin: auto; margin-top: 40px;background-color: #FFFFFF; opacity: 0.90; border-radius: 5px; padding: 20px; max-width: 775px">
+        <textarea id="chat-log" cols="100" rows="20" style="resize: none; opacity:0.90; padding: 10px; border-top-style: hidden; border-right-style: hidden; border-left-style: hidden; border-bottom-style: hidden;outline: none;" placeholder="Chat history appears here."></textarea>
+        <br>
+        <textarea id="chat-message-input" cols="100" rows="5" style="resize: none; opacity:0.90; padding: 10px; border-top-style: hidden; border-right-style: hidden; border-left-style: hidden; border-bottom-style: hidden; outline: none;" placeholder="Your text goes here."></textarea>
+        <br><br>
+        <input id="chat-message-submit" type="button" value="Send" style="display: none;">
+    <div>
     {{ room_name|json_script:"room-name" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const identification = '{{ user.username }}';
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -39,7 +44,8 @@
 
         document.querySelector('#chat-message-submit').onclick = function(e) {
             const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
+            const message = identification + ": " + messageInputDom.value;
+
             chatSocket.send(JSON.stringify({
                 'message': message
             }));
