@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'homepage',
     'channels',
     'chat',
+    'crispy_forms',
     ]
 
 MIDDLEWARE = [
@@ -159,3 +160,6 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'home'
+
+CRISPY_TEMPLATE_PACK="bootstrap4"
+
